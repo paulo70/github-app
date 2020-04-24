@@ -6,13 +6,13 @@ import UserInfo from './user-info'
 import Actions  from './actions'
 import Repos    from './repos'
 
-const AppContent = ({userinfo, repos, starred}) => (
+const AppContent = ({userinfo, repos, starred, handleSearch, getRepos, getStarred}) => (
   <div className='app'>
-    <Search />
+    <Search  handleSearch={ handleSearch }/>
 
-    { !!userinfo && <UserInfo userinfo={userinfo} /> }
+    { !!userinfo && <UserInfo userinfo= { userinfo } /> }
 
-    { !!userinfo && <Actions /> }
+    { !!userinfo && <Actions getRepos = { getRepos } getStarred = { getStarred } /> }
 
     { !!repos.length &&
       <Repos
