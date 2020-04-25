@@ -13,7 +13,8 @@ class App extends Component {
       userinfo: null,
       repos: [],
       starred: [],
-      repositores: []
+      repositores: [],
+      isFecthing: false
     }
   }
 
@@ -29,11 +30,10 @@ class App extends Component {
     const value = e.target.value
     const keyCode = e.which || e.keyCode
     const ENTER = 13
-    const target = e.target
 
     if( keyCode === ENTER ) {
 
-      target.disabled = true
+      this.setState({ isFecthing: true })
 
       ajax().get(this.getGitHubApiUrl(value))
         .then((result) => {
@@ -50,9 +50,7 @@ class App extends Component {
             starred: [],
         })
       })
-        .always(() => {
-          target.disabled = false
-        })
+        .always(() => this.setState({ isFecthing: false }))
       }
     }
 
@@ -76,9 +74,10 @@ class App extends Component {
   render () {
     return (
       <AppContent
-        userinfo ={this.state.userinfo}
-        repos    ={this.state.repos}
-        starred  ={this.state.starred}
+        userinfo = {this.state.userinfo}
+        repos    = {this.state.repos}
+        starred  = {this.state.starred}
+        isFecthing = {this.state.isFecthing}
         handleSearch = {(e) => this.handleSearch(e)}
         getRepos = {this.getRepos('repos')}
         getStarred = {this.getRepos('starred')}
