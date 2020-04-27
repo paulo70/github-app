@@ -16,6 +16,8 @@ class App extends Component {
       repositores: [],
       isFecthing: false
     }
+
+    this.handleSearch = this.handleSearch.bind(this)
   }
 
   getGitHubApiUrl (username, type){
@@ -74,11 +76,8 @@ class App extends Component {
   render () {
     return (
       <AppContent
-        userinfo = {this.state.userinfo}
-        repos    = {this.state.repos}
-        starred  = {this.state.starred}
-        isFecthing = {this.state.isFecthing}
-        handleSearch = {(e) => this.handleSearch(e)}
+        {...this.state}
+        handleSearch = {this.handleSearch}
         getRepos = {this.getRepos('repos')}
         getStarred = {this.getRepos('starred')}
       />
